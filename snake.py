@@ -72,5 +72,5 @@ while True:
         tail = snake.pop()
         w.addch(int(tail[0]), int(tail[1]), ' ')
     
-#    w.addch(int(scoreboard[0]), int(scoreboard[1]), str(score)) 
+    w.addstr(int(scoreboard[0]), int(scoreboard[1]), str(score)) 
     w.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
