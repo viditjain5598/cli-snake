@@ -23,6 +23,14 @@ scoreboard = [0, sw/2]
 food = [sh/2, sw/2]
 w.addch(int(food[0]), int(food[1]), curses.ACS_PLUS)
 
+for i in range(0, sh-1):
+    w.addch(i, 0, curses.ACS_CKBOARD)
+    w.addch(i, sw-1, curses.ACS_CKBOARD)
+for j in range(0, sw-1):
+    w.addch(0, j, curses.ACS_CKBOARD)
+    w.addch(sh-1, j, curses.ACS_CKBOARD) 
+w.insch(sh-1, sw-1, curses.ACS_CKBOARD)
+
 key = curses.KEY_RIGHT
 
 while True:
