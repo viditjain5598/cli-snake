@@ -1,5 +1,6 @@
 import curses as c
 import random
+#import time
 
 def start_screen(s):
     c.noecho()
@@ -8,8 +9,8 @@ def start_screen(s):
     w = c.newwin(sh, sw, 0, 0)
     w.keypad(1)
     w.timeout(100)
-    entry_message = "Welcome to snake game!"
-    w.addstr(sh/2, sw/2, entry_message)
+    ent_msg = "Welcome to snake game!"
+    w.addstr(int(sh/2), int(sw/2-len(ent_msg)/2), ent_msg)
     key = -1
     while key==-1:
         key = w.getch()
@@ -62,11 +63,13 @@ def gameplay(s):
       
         if snake[0][0] in [0, sh-1] or snake[0][1]  in [0, sw-1]:
             c.endwin()
-            quit()
+#            quit()
+            return score
         
         if snake[0] in snake[1:]:
             c.endwin()
-            quit()
+#            quit()
+            return score
 
         new_head = [snake[0][0], snake[0][1]]
 
@@ -98,7 +101,25 @@ def gameplay(s):
         w.addstr(int(scoreboard[0]), int(scoreboard[1]), str(score)) 
         w.addch(int(snake[0][0]), int(snake[0][1]), c.ACS_CKBOARD)
 
+def end_screen(s, score):
+    c.noecho()
+    c.curs_set(0)
+    sh, sw = s.getmaxyx()
+    w = c.newwin(sh, sw, 0, 0)
+    w.keypad(1)
+    w.timeout(100)
+#    time.sleep(1)
+    end_msg = "final score: " + str(score)
+    w.addstr(int(sh/2-len(end_msg)/2), int(sw/2-len(end_msg)/2), end_msg)
+    key = -1
+
+    while key == -1:
+        key = w.getch()
+    c.endwin()
+    return 
 
 screen = c.initscr()
 start_screen(screen)
-gameplay(screen)
+fin_score = gameplay(screen)
+end_screen(screen, fin_score) 
+
