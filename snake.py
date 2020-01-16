@@ -1,6 +1,21 @@
 import curses as c
 import random
 
+def start_screen(s):
+    c.noecho()
+    c.curs_set(0)
+    sh, sw = s.getmaxyx()
+    w = c.newwin(sh, sw, 0, 0)
+    w.keypad(1)
+    w.timeout(100)
+    entry_message = "Welcome to snake game!"
+    w.addstr(sh/2, sw/2, entry_message)
+    key = -1
+    while key==-1:
+        key = w.getch()
+    c.endwin()
+    return
+
 def gameplay(s):
     c.noecho()
     c.curs_set(0)
@@ -83,6 +98,7 @@ def gameplay(s):
         w.addstr(int(scoreboard[0]), int(scoreboard[1]), str(score)) 
         w.addch(int(snake[0][0]), int(snake[0][1]), c.ACS_CKBOARD)
 
-s = c.initscr()
 
-gameplay(s)
+screen = c.initscr()
+start_screen(screen)
+gameplay(screen)
