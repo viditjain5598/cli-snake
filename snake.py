@@ -1,6 +1,5 @@
 import curses as c
 import random
-#import time
 
 def start_screen(s):
     c.noecho()
@@ -63,12 +62,10 @@ def gameplay(s):
       
         if snake[0][0] in [0, sh-1] or snake[0][1]  in [0, sw-1]:
             c.endwin()
-#            quit()
             return score
         
         if snake[0] in snake[1:]:
             c.endwin()
-#            quit()
             return score
 
         new_head = [snake[0][0], snake[0][1]]
@@ -108,13 +105,14 @@ def end_screen(s, score):
     w = c.newwin(sh, sw, 0, 0)
     w.keypad(1)
     w.timeout(100)
-#    time.sleep(1)
     end_msg = "final score: " + str(score)
     w.addstr(int(sh/2-len(end_msg)/2), int(sw/2-len(end_msg)/2), end_msg)
     key = -1
 
     while key == -1:
         key = w.getch()
+        if key == c.KEY_UP or key == c.KEY_DOWN or key == c.KEY_RIGHT or key == c.KEY_LEFT:
+            key = -1
     c.endwin()
     return 
 
